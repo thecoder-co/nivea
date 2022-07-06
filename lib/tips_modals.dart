@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:nivea/day_completed_first.dart';
 import 'package:nivea/hexagon_clipper.dart';
 import 'package:nivea/main.dart';
+
+class Tip {
+  final String thumb;
+  final String? url;
+  Tip({
+    required this.thumb,
+    this.url,
+  });
+}
 
 class TipsData {
   static openTip(
@@ -19,6 +29,43 @@ class TipsData {
       isScrollControlled: true,
     );
   }
+
+  static List<Tip> previousTips = [
+    Tip(
+      thumb: 'assets/prev1.jpeg',
+      url: 'https://www.youtube.com/watch?v=oCFcm9o4WLY',
+    ),
+    Tip(
+      thumb: 'assets/prev2.jpeg',
+      url: 'https://www.youtube.com/watch?v=ZRDn84k6HxU',
+    ),
+    Tip(
+      thumb: 'assets/prev3.jpeg',
+    ),
+  ];
+
+  static List<Tip> testimonial = [
+    Tip(
+      thumb: 'assets/TESTIMONY 1.png',
+      url: 'https://www.youtube.com/watch?v=HOFLQhlqU6c',
+    ),
+    Tip(
+      thumb: 'assets/TESTIMONY 2.png',
+      url: 'https://www.youtube.com/watch?v=m2YV8IF6gwg',
+    ),
+    Tip(
+      thumb: 'assets/TESTIMONY 3.png',
+      url: 'https://www.youtube.com/watch?v=42NJ1XcvPrI',
+    ),
+    Tip(
+      thumb: 'assets/TESTIMONY 4.png',
+      url: 'https://www.youtube.com/watch?v=Xb3xCyLEJBc',
+    ),
+  ];
+
+  static Tip mainTip = Tip(
+      thumb: 'assets/MAIN VIDEO.png',
+      url: 'https://www.youtube.com/watch?v=iqz7XyXOIOI');
 
   static List<String> tips = [
     """Your face collects oil, dirt and dust throughout the day so it's important to use a gentle cleanser to wash all the debris off.
@@ -50,12 +97,20 @@ Finally, use Luminous Nivea Anti-dark spots and Serum to nourish your face and h
   ];
 }
 
-class TipsModal extends StatelessWidget {
+class TipsModal extends StatefulWidget {
   final int index;
   const TipsModal({
     Key? key,
     required this.index,
   }) : super(key: key);
+
+  @override
+  State<TipsModal> createState() => _TipsModalState();
+}
+
+class _TipsModalState extends State<TipsModal> {
+  bool serum = false;
+  bool lotion = false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +128,193 @@ class TipsModal extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  padding: const EdgeInsets.all(40),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
+                      const Text(
+                        'YOUR DAY 7 ROUTINE',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 49, 35, 30),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(
+                        color: AppColors.lightGold,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: Container(
+                                height: 15,
+                                width: 15,
+                                color: const Color(0xffcccc33),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Image.asset(
+                              'assets/serum.png',
+                              height: 80,
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                                'Have you applied the\nLuminous Serum Today?'),
+                            const Spacer(),
+                            Column(
+                              children: [
+                                Radio(
+                                  groupValue: serum,
+                                  onChanged: (bool? v) {
+                                    setState(() => serum = v!);
+                                  },
+                                  value: true,
+                                ),
+                                // const SizedBox(height: 5),
+                                const Text('YES'),
+                              ],
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              children: [
+                                Radio(
+                                  onChanged: (bool? v) {
+                                    setState(() => serum = v!);
+                                  },
+                                  groupValue: serum,
+                                  value: false,
+                                ),
+                                //const SizedBox(height: 5),
+                                const Text('NO'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: Container(
+                                height: 15,
+                                width: 15,
+                                color: const Color(0xffcccccc),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Image.asset(
+                              'assets/moisturizer.png',
+                              height: 80,
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                                'Have you applied your\nLuminous Moisturizer\nToday?'),
+                            const Spacer(),
+                            Column(
+                              children: [
+                                Radio(
+                                  groupValue: lotion,
+                                  onChanged: (bool? v) {
+                                    setState(() => lotion = v!);
+                                  },
+                                  value: true,
+                                ),
+                                // const SizedBox(height: 5),
+                                const Text('YES'),
+                              ],
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              children: [
+                                Radio(
+                                  onChanged: (bool? v) {
+                                    setState(() => lotion = v!);
+                                  },
+                                  groupValue: lotion,
+                                  value: false,
+                                ),
+                                //const SizedBox(height: 5),
+                                const Text('NO'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                onPrimary: Colors.white,
+                                primary: AppColors.lightGold,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (c) => const DayCompFirst(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'DONE WITH TODAY',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                //onPrimary: Colors.white,
+                                primary: AppColors.lightGold,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (c) => const DayCompFirst(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'I\'LL GET TO IT LATER',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      const Divider(
+                        color: AppColors.lightGold,
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'YOUR TIP FOR THE DAY',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 49, 35, 30),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           const Expanded(
@@ -87,7 +326,7 @@ class TipsModal extends StatelessWidget {
                           ),
                           HexagonBox(
                             child: Image.asset(
-                              'assets/day ${index + 1}.jpeg',
+                              'assets/day ${widget.index + 1}.jpeg',
                               height: 120,
                               width: 120,
                               fit: BoxFit.cover,
@@ -106,7 +345,7 @@ class TipsModal extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        TipsData.tips[index],
+                        TipsData.tips[widget.index],
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -116,31 +355,6 @@ class TipsModal extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                width: double.infinity,
-                color: AppColors.lightGold,
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'I AM DONE READING',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(height: 25),
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       ),

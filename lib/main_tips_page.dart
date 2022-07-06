@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nivea/main.dart';
-import 'package:nivea/play_tip_page.dart';
+import 'package:nivea/tips_modals.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Tips extends StatelessWidget {
   const Tips({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class Tips extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20).copyWith(top: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -48,37 +49,24 @@ class Tips extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse(TipsData.mainTip.url!));
+                    },
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      color: const Color.fromARGB(255, 163, 58, 93),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 90,
-                          width: 90,
-                          decoration: BoxDecoration(
-                            color: AppColors.paleGold,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Container(
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PlayTipPage()),
-                                );
-                              },
-                              icon: const Icon(Icons.play_arrow),
-                            ),
-                          ),
+                      child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color.fromARGB(255, 163, 58, 93),
                         ),
-                      ],
+                        child: Image.asset(
+                          TipsData.mainTip.thumb,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -119,33 +107,9 @@ class Tips extends StatelessWidget {
               height: 200,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: TipsData.previousTips.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: 130,
-                          width: 180,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Lorem ipsum dolor sit\namet, consectetur.',
-                          style: TextStyle(
-                            color: AppColors.darkGold,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return TipBox(tip: TipsData.previousTips[index]);
                 },
               ),
             ),
@@ -154,7 +118,7 @@ class Tips extends StatelessWidget {
               child: Row(
                 children: [
                   const Text(
-                    'PREVIOUS TIPS',
+                    'TESTIMONIALS',
                     style: TextStyle(
                       fontSize: 20,
                       color: AppColors.lightGold,
@@ -184,38 +148,62 @@ class Tips extends StatelessWidget {
               height: 200,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: TipsData.testimonial.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 180, 173, 151),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: 130,
-                          width: 180,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Lorem ipsum dolor sit\namet, consectetur.',
-                          style: TextStyle(
-                            color: AppColors.darkGold,
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return TipBox(tip: TipsData.testimonial[index]);
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TipBox extends StatelessWidget {
+  final Tip tip;
+  const TipBox({Key? key, required this.tip}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              if (tip.url != null) {
+                launchUrl(Uri.parse(tip.url!));
+              }
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 180, 173, 151),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                height: 130,
+                width: 180,
+                child: Image.asset(
+                  tip.thumb,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const Text(
+            'Lorem ipsum dolor sit\namet, consectetur.',
+            style: TextStyle(
+              color: AppColors.darkGold,
+            ),
+          )
+        ],
       ),
     );
   }

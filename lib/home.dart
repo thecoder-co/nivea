@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nivea/home_page.dart';
 import 'package:nivea/main_tips_page.dart';
+import 'package:nivea/profile_page.dart';
+import 'package:nivea/tips_modals.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,20 +12,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      TipsData.openTip(context, 6);
+    });
+  }
+
   int index = 0;
   List<Widget> widgets = [
-    const HomePage(),
+    const SafeArea(child: HomePage()),
     Container(),
     Container(),
-    const Tips(),
-    Container(),
+    const SafeArea(child: Tips()),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox.expand(child: widgets[index]),
-      ),
+      body: SizedBox.expand(child: widgets[index]),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 34,
         type: BottomNavigationBarType.fixed,

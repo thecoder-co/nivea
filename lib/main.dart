@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
           color: AppColors.darkGold,
         ),
 
+        fontFamily: 'Font',
+
         scaffoldBackgroundColor: Colors.white,
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: AppColors.paleGold,
@@ -70,5 +72,6 @@ class MyApp extends StatelessWidget {
 class AppColors {
   static const lightGold = Color(0xffC3A557);
   static const paleGold = Color(0xffF4EFE0);
+  static const brown = Color.fromARGB(255, 49, 35, 30);
   static const darkGold = Color(0xffA38538);
 }

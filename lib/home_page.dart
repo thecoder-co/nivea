@@ -4,9 +4,15 @@ import 'package:nivea/hexagon_clipper.dart';
 import 'package:nivea/main.dart';
 import 'package:nivea/todays_tips_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +30,11 @@ class HomePage extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               Row(
                 children: [
@@ -160,6 +166,7 @@ class HomePage extends StatelessWidget {
                             color: AppColors.darkGold,
                             height: 120,
                             width: 120,
+                            child: Image.asset('assets/day 7.jpeg'),
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -253,128 +260,123 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.paleGold,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: 150,
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+              Container(
+                transform: Matrix4.translationValues(0, -30, 0),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.paleGold,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      width: double.infinity,
+                      height: 200,
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'LEARN ABOUT\nLUMINOUS 630',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w900,
-                                      color: AppColors.darkGold,
-                                    ),
+                              Container(
+                                transform: Matrix4.translationValues(30, 0, 0),
+                                child: const Text(
+                                  'LEARN ABOUT\nLUMINOUS 630',
+                                  style: TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    color: AppColors.darkGold,
                                   ),
-                                  const Spacer(),
-                                  InkWell(
-                                    onTap: () {
-                                      /*  Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (ctx) => const SignupPage(),
-                                        ),
-                                      ); */
-                                    },
-                                    child: Container(
-                                      // width: 70,
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.darkGold,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      padding: const EdgeInsets.all(10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Text(
-                                            'BUY NOW',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          SizedBox(width: 25),
-                                          Icon(
-                                            Icons.arrow_forward,
-                                            color: Colors.white,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                        Container(
-                          transform: Matrix4.translationValues(-50, -50, 0),
-                          child: Image.asset(
-                            'assets/NIVEA BOTTLE.png',
-                            height: 200,
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  /*  Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (ctx) => const SignupPage(),
+                                          ),
+                                        ); */
+                                },
+                                child: Container(
+                                  width: 180,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.darkGold,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        'BUY NOW',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(width: 25),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    Container(
+                      transform: Matrix4.translationValues(-50, -30, 0),
+                      child: Image.asset(
+                        'assets/NIVEA BOTTLE.png',
+                        height: 230,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                transform: Matrix4.translationValues(0, -45, 0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: AppColors.darkGold,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    primary: AppColors.paleGold,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        height: 150,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: AppColors.paleGold,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Text(
-                          'CHAT WITH\nA\nPROFESSIONAL',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.darkGold,
-                          ),
+                  onPressed: () {},
+                  child: Row(
+                    children: const [
+                      Text(
+                        'CHAT WITH LUMINOUS',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        transform: Matrix4.translationValues(14, -20, 0),
-                        child: HexagonBox(
-                          child: Container(
-                            padding: const EdgeInsets.all(15),
-                            color: AppColors.lightGold,
-                            child: const Icon(
-                              Icons.messenger_outline_rounded,
-                              color: AppColors.paleGold,
-                              size: 60,
-                            ),
-                          ),
-                        ),
-                      ),
+                      Spacer(),
+                      Icon(Icons.message, size: 30)
                     ],
-                  )
-                ],
-              )
+                  ),
+                ),
+              ),
             ],
           ),
         ),
